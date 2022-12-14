@@ -7,7 +7,7 @@
 
       <v-card class="mx-auto" max-width="700" style="margin-top: -64px">
         <v-toolbar flat>
-          <v-toolbar-title> Knowledge based system - Laptop</v-toolbar-title>
+          <v-toolbar-title> {{ title }}</v-toolbar-title>
 
           <v-spacer></v-spacer>
 
@@ -19,7 +19,7 @@
         <v-divider></v-divider>
 
         <v-card-text>
-          <StepperForm/>
+          <StepperForm />
         </v-card-text>
       </v-card>
     </v-card>
@@ -27,8 +27,7 @@
 </template>
 
 <script>
-
-import StepperForm from './components/StepperForm.vue';
+import StepperForm from "./components/StepperForm.vue";
 
 export default {
   name: "App",
@@ -38,7 +37,7 @@ export default {
   },
 
   data: () => ({
-    
+    title: "Knowledge based system - Laptop",
   }),
 };
 </script>

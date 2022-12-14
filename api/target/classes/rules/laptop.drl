@@ -8,3 +8,19 @@ when
 then
 	ms.setName("ASUS ROG Flow Z13");
 end;
+
+rule "Razer_Blade_15"
+
+when
+	ms : Laptop(utility == "Juegos" && size == "Grande" && cost == "Más de $300.000" && battery == "10hs o menos");
+then
+	ms.setName("Razer Blade 15");
+end;
+
+rule "ASUS_ROG_Zephyrus_Advantage_Edition_14"
+
+when
+	ms : Laptop(utility == "Juegos" && size == "Grande" && cost == "Más de $300.000" && battery == "Más de 10hs");
+then
+	ms.setName("ASUS ROG Zephyrus Advantage Edition 14");
+end;
