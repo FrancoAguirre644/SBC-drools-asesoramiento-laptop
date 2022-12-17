@@ -1,6 +1,8 @@
 package rules;
 import com.SBCDrools.demo.models.Laptop;
 
+// ############################################## Juegos/Gaming ##############################################
+
 rule "ASUS_ROG_Flow_Z13"
 
 when
@@ -17,6 +19,14 @@ then
 	ms.setName("Razer Blade 15");
 end;
 
+rule "HP_Victus_Gaming_15"
+
+when
+	ms : Laptop(utility == "Juegos" && size == "Grande" && cost == "$300.000 o menos" && battery == "10hs o menos");
+then
+	ms.setName("HP Victus Gaming 15");
+end;
+
 rule "ASUS_ROG_Zephyrus_Advantage_Edition_14"
 
 when
@@ -24,3 +34,119 @@ when
 then
 	ms.setName("ASUS ROG Zephyrus Advantage Edition 14");
 end;
+
+
+// ############################################## Básico ######################################################
+
+rule "Lenovo_IdealPad_Duet_3i"
+
+when
+	ms : Laptop(utility == "Basico" && size == "Pequenio");
+then
+	ms.setName("Lenovo IdealPad Duet 3i");
+end;
+
+rule "ASUS_VivoBook_13_Slate"
+
+when
+	ms : Laptop(utility == "Basico" && size == "Mediano");
+then
+	ms.setName("ASUS VivoBook 13 Slate");
+end;
+
+rule "Lenovo_IdealPad_Flex_5_15_inch"
+
+when
+	ms : Laptop(utility == "Basico" && size == "Grande");
+then
+	ms.setName("Lenovo IdealPad Flex 5 (15 inch)");
+end;
+
+
+// ############################################## Crear/Diseniar ##############################################
+
+rule "Microsoft_Surface_Go_3"
+
+when
+	ms : Laptop(utility == "Crear/Diseniar" && size == "Pequenio");
+then
+	ms.setName("Microsoft Surface Go 3");
+end;
+
+rule "Microsoft_Surface_Laptop_Studio"
+
+when
+	ms : Laptop(utility == "Crear/Diseniar" && size == "Mediano");
+then
+	ms.setName("Microsoft Surface Laptop Studio");
+end;
+
+rule "HP_ENVY_x360_15"
+
+when
+	ms : Laptop(utility == "Crear/Diseniar" && size == "Grande" && cost == "$300.000 o menos" && battery == "10hs o menos");
+then
+	ms.setName("HP ENVY x360 15");
+end;
+
+rule "Dell_XPS_17_9700"
+
+when
+	ms : Laptop(utility == "Crear/Diseniar" && size == "Grande" && cost == "Más de $300.000");
+then
+	ms.setName("Dell XPS 17 9700");
+end;
+
+rule "Dell_Inspiron_7506_2_in_1"
+
+when
+	ms : Laptop(utility == "Crear/Diseniar" && size == "Grande" && cost == "$300.000 o menos" && battery == "10hs o menos");
+then
+	ms.setName("Dell Inspiron 7506 2-in-1");
+end;
+
+
+// ############################################## Trabajo/Escuela ##############################################
+
+rule "Microsoft_Surface_Laptop_Go_2"
+
+when
+	ms : Laptop(utility == "Trabajo/Escuela" && size == "Pequenio");
+then
+	ms.setName("Microsoft Surface Laptop Go 2");
+end;
+
+rule "Microsoft_Surface_Laptop_4_13"
+
+when
+	ms : Laptop(utility == "Trabajo/Escuela" && size == "Mediano" && cost == "$300.000 o menos");
+then
+	ms.setName("Microsoft Surface Laptop 4 (13.5 inch)");
+end;
+
+rule "Microsoft_Surface_Laptop_5_15_inch"
+
+when
+	ms : Laptop(utility == "Trabajo/Escuela" && size == "Mediano" && cost == "Más de $300.000");
+then
+	ms.setName("Microsoft Surface Laptop 5 (15 inch)");
+end;
+
+
+rule "Lenovo_IdealPad_Flex_5_15_inch_"
+
+when
+	ms : Laptop(utility == "Trabajo/Escuela" && size == "Grande" && cost == "$300.000 o menos");
+then
+	ms.setName("Lenovo IdealPad Flex 5 (15 inch)");
+end;
+
+rule "LG_Gram_16"
+
+when
+	ms : Laptop(utility == "Trabajo/Escuela" && size == "Grande" && cost == "Más de $300.000");
+then
+	ms.setName("LG Gram 16");
+end;
+
+
