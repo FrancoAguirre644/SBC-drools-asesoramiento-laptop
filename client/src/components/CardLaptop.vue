@@ -19,7 +19,7 @@
             src="https://cdn.pixabay.com/photo/2020/06/24/19/12/cabbage-5337431_1280.jpg"
           />
         </v-avatar>
-        <p class="ml-3">{{ laptop.name }}</p>
+        <p class="ml-3">{{ laptop.name || "no notebook found with the following specifications" }}</p>
       </v-card-title>
     </v-img>
 
@@ -37,8 +37,8 @@
   </v-card>
 </template>
 
-<script>
-export default {
-    props: ['laptop']
-};
+<script lang="ts">
+  export default {
+      props: ['laptop']
+  };
 </script>

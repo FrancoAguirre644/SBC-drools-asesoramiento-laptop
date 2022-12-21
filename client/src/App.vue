@@ -26,18 +26,20 @@
   </v-app>
 </template>
 
-<script>
-import StepperForm from "./components/StepperForm.vue";
+<script lang="ts">
+  import Vue from 'vue';
+  import StepperForm from './components/StepperForm.vue';
 
-export default {
-  name: "App",
+  export default Vue.extend({
+    name: "App",
 
-  components: {
-    StepperForm,
-  },
+    components: {
+      StepperForm,
+    },
 
-  data: () => ({
-    title: "Knowledge based system - Laptop",
-  }),
-};
+    data: () => ({
+      title: "Knowledge based system - Laptop" as string,
+    }),
+  });
+
 </script>

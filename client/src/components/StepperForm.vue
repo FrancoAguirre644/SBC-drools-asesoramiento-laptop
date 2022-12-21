@@ -1,6 +1,10 @@
 <template>
   <v-container>
-    <CardLaptop :laptop="laptop" v-if="!loading && laptop.name" />
+    <CardLaptop :laptop="laptop" v-if="!loading && laptop.name"/>
+
+    <v-alert border="right" color="indigo" dark v-if="!laptop.name && !loading && error">
+      {{ error }}
+    </v-alert>
 
     <v-layout align-center justify-center column fill-height v-if="loading">
       <v-flex row align-center>
@@ -13,7 +17,7 @@
       </v-flex>
     </v-layout>
 
-    <v-stepper v-model="e1" elevation="0" v-else-if="!laptop.name">
+    <v-stepper v-model="e1" elevation="0" v-else-if="!laptop.name && !error">
       <v-stepper-header>
         <v-stepper-step :complete="e1 > 1" step="1"> Utility </v-stepper-step>
 
@@ -48,7 +52,6 @@
               >{{ item }}</v-btn
             >
           </v-card>
-
         </v-stepper-content>
 
         <v-stepper-content step="2">
@@ -69,7 +72,7 @@
             >
           </v-card>
 
-          <v-btn text> Cancel </v-btn>
+          <v-btn text @click="e1 = 1"> Cancel </v-btn>
         </v-stepper-content>
 
         <v-stepper-content step="3">
@@ -90,7 +93,7 @@
             >
           </v-card>
 
-          <v-btn text> Cancel </v-btn>
+          <v-btn text @click="e1 = 2"> Cancel </v-btn>
         </v-stepper-content>
 
         <v-stepper-content step="4">
@@ -111,69 +114,78 @@
             >
           </v-card>
 
-          <v-btn text> Cancel </v-btn>
+          <v-btn text @click="e1 = 3"> Cancel </v-btn>
         </v-stepper-content>
       </v-stepper-items>
     </v-stepper>
   </v-container>
 </template>
 
-<script>
-import axios from "axios";
-import CardLaptop from "./CardLaptop.vue";
+<script lang="ts">
 
-export default {
-  name: "StepperForm",
-  components: {
-    CardLaptop,
-  },
-  data: () => ({
-    e1: 1,
-    loading: false,
+  import Vue from 'vue';
+  import axios from "axios";
+  import CardLaptop from "./CardLaptop.vue";
+  import { Laptop } from "../models/index";
 
-    utilityOptions: ["Basico", "Juegos", "Crear/Diseniar", "Trabajo/Escuela"],
-    sizeOptions: ["Pequenio", "Mediano", "Grande"],
-    costOptions: ["$300.000 o menos", "Más de $300.000"],
-    batteryOptions: ["10hs o menos", "Más de 10hs"],
+  export default Vue.extend({
+    name: "StepperForm",
+    components: {
+      CardLaptop,
+    },
+    data: () => ({
+      e1: 1 as number,
+      loading: false as boolean,
+      error: "" as string,
 
-    laptop: {},
-  }),
-  methods: {
-    handleSubmit() {
-      this.loading = true;
+      utilityOptions: [
+        "Basico",
+        "Juegos",
+        "Crear/Diseniar",
+        "Trabajo/Escuela",
+      ] as string[],
+      sizeOptions: ["Pequenio", "Mediano", "Grande"] as string[],
+      costOptions: ["$300.000 o menos", "Más de $300.000"] as string[],
+      batteryOptions: ["10hs o menos", "Más de 10hs"] as string[],
 
-      axios
-        .post("http://localhost:8080/laptops", this.laptop)
-        .then((response) => {
-          console.log(response.data);
-          this.laptop = response.data;
-        })
-        .catch((error) => {
-          console.log(error);
-        })
-        .finally(() => {
-          setTimeout(() => {
-            this.loading = false;
-          }, 1500);
-        });
-    },
+      laptop: {} as Laptop,
+    }),
+    methods: {
+      handleSubmit() {
+        this.loading = true;
 
-    handleUtilityOption(utility) {
-      this.laptop.utility = utility;
-      this.e1 = 2;
+        axios
+          .post("http://localhost:8080/laptops", this.laptop)
+          .then((response) => {
+            if(!response.data.name) this.error = "No notebook found with the following specifications.";
+            this.laptop = response.data;
+          })
+          .catch((error) => {
+            console.log(error);
+          })
+          .finally(() => {
+            setTimeout(() => {
+              this.loading = false;
+            }, 1500);
+          });
+      },
+
+      handleUtilityOption(utility: string): void {
+        this.laptop.utility = utility;
+        this.e1 = 2;
+      },
+      handleSizeOption(size: string): void {
+        this.laptop.size = size;
+        this.e1 = 3;
+      },
+      handleCostOptions(cost: string): void {
+        this.laptop.cost = cost;
+        this.e1 = 4;
+      },
+      handleBatteryOptions(battery: string): void {
+        this.laptop.battery = battery;
+        this.handleSubmit();
+      },
     },
-    handleSizeOption(size) {
-      this.laptop.size = size;
-      this.e1 = 3;
-    },
-    handleCostOptions(cost) {
-      this.laptop.cost = cost;
-      this.e1 = 4;
-    },
-    handleBatteryOptions(battery) {
-      this.laptop.battery = battery;
-      this.handleSubmit();
-    },
-  },
-};
+  });
 </script>
