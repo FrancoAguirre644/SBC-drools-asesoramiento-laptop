@@ -155,7 +155,7 @@
         this.loading = true;
 
         axios
-          .post("https://sbc-drools-laptop.herokuapp.com/laptop", this.laptop)
+          .post("https://sbc-drools-laptop.herokuapp.com/laptops", this.laptop)
           .then((response) => {
             if(!response.data.name) this.error = "No notebook found with the following specifications.";
             this.laptop = response.data;
