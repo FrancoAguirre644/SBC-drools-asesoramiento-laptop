@@ -2,9 +2,16 @@
   <v-container>
     <CardLaptop :laptop="laptop" v-if="!loading && laptop.name"/>
 
-    <v-alert border="right" color="indigo" dark v-if="!laptop.name && !loading && error">
-      {{ error }}
-    </v-alert>
+    <v-container v-if="!laptop.name && !loading && error">
+      <v-alert border="right" color="indigo" dark>
+        {{ error }}
+        <v-list-item v-for="(value, key) in Object(laptop)" :key="value">
+          <v-list-item-content v-if="key != 'name'">
+            <v-list-item-title class="text-capitalize">{{ key }}: {{ value }}</v-list-item-title>
+          </v-list-item-content>
+        </v-list-item>
+      </v-alert>
+    </v-container>
 
     <v-layout align-center justify-center column fill-height v-if="loading">
       <v-flex row align-center>
@@ -157,7 +164,7 @@
         axios
           .post("https://sbc-drools-laptop.herokuapp.com/laptops", this.laptop)
           .then((response) => {
-            if(!response.data.name) this.error = "No notebook found with the following specifications.";
+            if(!response.data.name) this.error = "No notebook found with the following specifications:";
             this.laptop = response.data;
           })
           .catch((error) => {

@@ -25,10 +25,10 @@
 
     <v-card-text>
       <v-timeline align-top dense>
-        <v-timeline-item v-for="l in Object(laptop)" :key="l" small>
+        <v-timeline-item v-for="(value, key) in Object(laptop)" :key="value" small>
           <div>
             <div class="font-weight-normal">
-              <strong>{{ l }}</strong> @{{ l }}
+              <strong class="text-capitalize">{{ key }}</strong> @{{ value }}
             </div>
           </div>
         </v-timeline-item>
